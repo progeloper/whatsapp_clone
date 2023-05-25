@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone/core/common/widgets/action_button.dart';
 import 'package:whatsapp_clone/theme/palette.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -13,33 +14,30 @@ class WelcomeScreen extends StatelessWidget {
             top: 32,
             bottom: 16,
           ),
-          child: Container(
-            height: double.infinity,
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Welcome to WhatsApp',
-                  style: TextStyle(
-                    color: Palette.textColor,
-                    fontSize: 20,
-                  ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Welcome to WhatsApp',
+                style: TextStyle(
+                  color: Palette.textColor,
+                  fontSize: 20,
                 ),
-                Flexible(
-                  child: Container(),
+              ),
+              Flexible(
+                child: Container(),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Image.asset(
+                  'assets/bg.png',
+                  fit: BoxFit.fitWidth,
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: Image.asset(
-                    'assets/bg.png',
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-                Flexible(child: Container()),
-                RichText(
-                  textAlign: TextAlign.center,
-                    text: TextSpan(
+              ),
+              Flexible(child: Container()),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
                   text: 'Tap "Agree and continue" to accept the ',
                   style: TextStyle(
                     color: Palette.textColor,
@@ -52,9 +50,16 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),),
-              ],
-            ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width*0.8,
+                child: ActionButton(text: 'AGREE AND CONTINUE', color: Palette.tabColor, callback: () {},),
+              )
+            ],
           ),
         ),
       ),
