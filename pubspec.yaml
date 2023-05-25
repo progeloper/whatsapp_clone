@@ -46,6 +46,7 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   url_launcher: ^6.1.10
   country_code_picker: ^3.0.0
+  flutter_firebase_recaptcha: ^1.0.2
 
 dev_dependencies:
   flutter_test:
