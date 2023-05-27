@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/core/common/delegates.dart';
 import 'package:whatsapp_clone/features/auth/screens/enter_phone_screen.dart';
-import 'package:whatsapp_clone/features/auth/screens/welcome_screen.dart';
 import 'package:whatsapp_clone/theme/palette.dart';
 
 void main() {

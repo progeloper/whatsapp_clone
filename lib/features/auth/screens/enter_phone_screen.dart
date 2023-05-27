@@ -11,12 +11,9 @@ class EnterPhoneScreen extends StatefulWidget {
 class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: CountryCodePicker(
-        onChanged: (value){},
-        showDropDownButton: true,
-        initialSelection: 'NG',
-
+    return Scaffold(
+      body: SafeArea(
+        child: ,
       ),
     );
   }
