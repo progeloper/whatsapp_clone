@@ -41,6 +41,16 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                     fontSize: 15,
                   ),
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                  ],
+                )
               ],
             ),
           ),
