@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:whatsapp_clone/core/common/widgets/number_text_field.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/common/widgets/action_button.dart';
 import '../../../theme/palette.dart';
 
-class EnterPhoneScreen extends StatefulWidget {
-  const EnterPhoneScreen({Key? key}) : super(key: key);
+
+class EnterPhoneScreen extends ConsumerStatefulWidget {
+  const EnterPhoneScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<EnterPhoneScreen> createState() => _EnterPhoneScreenState();
+  ConsumerState createState() => _EnterPhoneScreenState();
 }
 
-class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
+class _EnterPhoneScreenState extends ConsumerState<EnterPhoneScreen> {
   late TextEditingController _controller;
   ValueNotifier<String> selectedCountry = ValueNotifier('Nigeria');
 
@@ -94,14 +97,19 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                           selectedCountry.value = country.name!;
                         },
                         initialSelection: "NG",
+                        showFlag: false,
+                        textStyle: TextStyle(
+                          fontSize: 17,
+                          color: Palette.textColor,
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     child: InputTextField(
                       child: TextField(
                         controller: _controller,
@@ -116,7 +124,7 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: Palette.tabColor, width: 2.0),
+                            BorderSide(color: Palette.tabColor, width: 2.0),
                           ),
                         ),
                       ),
@@ -174,3 +182,4 @@ class _EnterPhoneScreenState extends State<EnterPhoneScreen> {
     );
   }
 }
+

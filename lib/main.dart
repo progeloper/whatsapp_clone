@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/core/common/delegates.dart';
+import 'package:whatsapp_clone/features/auth/screens/enter_otp_screen.dart';
 import 'package:whatsapp_clone/features/auth/screens/enter_phone_screen.dart';
 import 'package:whatsapp_clone/theme/palette.dart';
 
@@ -19,9 +20,8 @@ class MyApp extends StatelessWidget {
       title: 'Whatsapp UI',
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Palette.backgroundColor,
-
       ),
-      home: EnterPhoneScreen(),
+      home: EnterOTPScreen(phoneNumber: '+2341234567890',),
     );
   }
 }
