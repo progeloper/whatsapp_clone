@@ -1,15 +1,26 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/features/auth/repository/auth_repository.dart';
 
+import '../../../core/utils.dart';
 
-final authControllerProvider = StateNotifierProvider<AuthController, bool>((ref) {
+final authControllerProvider =
+    StateNotifierProvider<AuthController, bool>((ref) {
   final repo = ref.read(authRepoProvider);
   return AuthController(repo: repo);
 });
 
-
-class AuthController extends StateNotifier<bool>{
+class AuthController extends StateNotifier<bool> {
   final AuthRepository _repo;
-  AuthController({required AuthRepository repo}) : _repo = repo, super(false);
+  AuthController({required AuthRepository repo})
+      : _repo = repo,
+        super(false);
 
+  void registerUser(String mobile, BuildContext context) async {
+    final res = await _repo.registerUser(mobile, context);
+    res.fold(
+      (l) => showSnackBar(context, l.error),
+      (r) => null,
+    );
+  }
 }

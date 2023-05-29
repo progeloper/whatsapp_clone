@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Palette.backgroundColor,
       ),
-      home: EnterOTPScreen(phoneNumber: '+2341234567890',),
+      home: EnterPhoneScreen(),
     );
   }
 }

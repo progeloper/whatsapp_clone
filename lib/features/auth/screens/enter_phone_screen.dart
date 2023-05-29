@@ -3,6 +3,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:whatsapp_clone/core/common/widgets/number_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import '../../../core/common/widgets/action_button.dart';
 import '../../../theme/palette.dart';
 
@@ -19,6 +20,7 @@ class EnterPhoneScreen extends ConsumerStatefulWidget {
 class _EnterPhoneScreenState extends ConsumerState<EnterPhoneScreen> {
   late TextEditingController _controller;
   ValueNotifier<String> selectedCountry = ValueNotifier('Nigeria');
+  ValueNotifier<String> countryCode = ValueNotifier('+234');
 
   @override
   void initState() {
@@ -30,6 +32,10 @@ class _EnterPhoneScreenState extends ConsumerState<EnterPhoneScreen> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+
+  void sendOTP(BuildContext context, WidgetRef ref){
+    ref.read(authControllerProvider.notifier).registerUser('$countryCode}${_controller.text}', context);
   }
 
   @override
@@ -95,6 +101,7 @@ class _EnterPhoneScreenState extends ConsumerState<EnterPhoneScreen> {
                       child: CountryCodePicker(
                         onChanged: (country) {
                           selectedCountry.value = country.name!;
+                          countryCode.value = country.code!;
                         },
                         initialSelection: "NG",
                         showFlag: false,

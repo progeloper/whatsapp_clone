@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/features/auth/repository/auth_repository.dart';
 import 'package:whatsapp_clone/theme/palette.dart';
 
 import '../../../core/common/widgets/number_text_field.dart';
@@ -36,6 +37,10 @@ class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
 
   void goBack(BuildContext context) {
     Routemaster.of(context).pop();
+  }
+
+  void updateSmsCode(WidgetRef ref){
+    ref.read(smsCodeProvider.notifier).state = _controller.text.trim();
   }
 
   @override
@@ -99,29 +104,44 @@ class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
               const SizedBox(
                 height: 15,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: InputTextField(
-                  child: TextField(
-                    controller: _controller,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(6),
-                    ],
-                    decoration: InputDecoration(
-                      hintText: "OTP Code",
-                      hintStyle: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: Palette.hintTextColor,
-                        letterSpacing: 1.0,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Palette.tabColor, width: 2.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: InputTextField(
+                      child: TextField(
+                        controller: _controller,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(6),
+                        ],
+                        decoration: InputDecoration(
+                          hintText: "OTP Code",
+                          hintStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Palette.hintTextColor,
+                            letterSpacing: 1.0,
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Palette.tabColor, width: 2.0),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.send,
+                      color: Palette.tabColor,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 10,
@@ -134,7 +154,7 @@ class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
                 height: 20,
               ),
               ListTile(
-                onTap: (){},
+                onTap: () {},
                 leading: Icon(
                   Icons.chat,
                   color: Palette.tabColor,
@@ -149,7 +169,7 @@ class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
                 ),
               ),
               ListTile(
-                onTap: ()=>goBack(context),
+                onTap: () => goBack(context),
                 leading: Icon(
                   Icons.phone_android,
                   color: Palette.tabColor,
