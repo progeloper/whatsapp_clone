@@ -17,6 +17,7 @@ class ActionButton extends StatelessWidget {
     return TextButton(
       style: TextButton.styleFrom(
         backgroundColor: color,
+        minimumSize: const Size(50, 45),
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 10,
@@ -26,8 +27,8 @@ class ActionButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: Palette.textColor,
-          fontSize: 16,
+          color: Palette.actionTextColor,
+          fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
       ),
