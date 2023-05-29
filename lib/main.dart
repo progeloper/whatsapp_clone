@@ -17,8 +17,9 @@ class MyApp extends StatelessWidget {
       supportedLocales: Delegates.supportedLocales,
       debugShowCheckedModeBanner: false,
       title: 'Whatsapp UI',
-      theme: ThemeData.dark().copyWith(
+      theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Palette.backgroundColor,
+
       ),
       home: EnterPhoneScreen(),
     );
