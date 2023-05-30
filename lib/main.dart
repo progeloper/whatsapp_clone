@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:whatsapp_clone/models/user.dart' as model;
 
 import 'core/common/error_text.dart';
+import 'features/auth/controller/auth_controller.dart';
 
 void main() {
   runApp(const ProviderScope(child: TheApp()));
@@ -46,10 +47,10 @@ class _TheAppState extends ConsumerState<TheApp> {
   model.User? userModel;
   int ctr = 0;
 
-  void getData(WidgetRef ref, User user) async {
+  void getData(WidgetRef ref, model.User user) async {
     userModel = await ref
         .read(authControllerProvider.notifier)
-        .getUserData(user.uid)
+        .getUserData(user.number)
         .first;
     ref.watch(userProvider.notifier).update((state) => userModel);
     if (ctr == 0) {

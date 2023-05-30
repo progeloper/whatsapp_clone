@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/features/auth/repository/auth_repository.dart';
+import 'package:whatsapp_clone/models/user.dart' as model;
 
 import '../../../core/utils.dart';
 
@@ -9,6 +10,9 @@ final authControllerProvider =
   final repo = ref.read(authRepoProvider);
   return AuthController(repo: repo);
 });
+
+final userProvider = StateProvider<model.User?>((ref)=>null);
+
 
 class AuthController extends StateNotifier<bool> {
   final AuthRepository _repo;
