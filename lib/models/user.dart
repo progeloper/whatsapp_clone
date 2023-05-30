@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User{
   final String name;
+  final String uid;
   final String number;
   final String displayPic;
   final String about;
@@ -12,6 +13,7 @@ class User{
 //<editor-fold desc="Data Methods">
   const User({
     required this.name,
+    required this.uid,
     required this.number,
     required this.displayPic,
     required this.about,
@@ -20,9 +22,9 @@ class User{
     required this.lastOnline,
   });
 
-
   User copyWith({
     String? name,
+    String? uid,
     String? number,
     String? displayPic,
     String? about,
@@ -32,6 +34,7 @@ class User{
   }) {
     return User(
       name: name ?? this.name,
+      uid: uid ?? this.uid,
       number: number ?? this.number,
       displayPic: displayPic ?? this.displayPic,
       about: about ?? this.about,
@@ -44,6 +47,7 @@ class User{
   Map<String, dynamic> toMap() {
     return {
       'name': this.name,
+      'uid': this.uid,
       'number': this.number,
       'displayPic': this.displayPic,
       'about': this.about,
@@ -56,6 +60,7 @@ class User{
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       name: map['name'] as String,
+      uid: map['uid'] as String,
       number: map['number'] as String,
       displayPic: map['displayPic'] as String,
       about: map['about'] as String,

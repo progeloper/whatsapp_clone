@@ -6,8 +6,8 @@ import 'package:whatsapp_clone/core/common/loading_screen.dart';
 import 'package:whatsapp_clone/features/auth/screens/enter_phone_screen.dart';
 import 'package:whatsapp_clone/router.dart';
 import 'package:whatsapp_clone/theme/palette.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:whatsapp_clone/models/user.dart' as model;
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'core/common/error_text.dart';
 import 'features/auth/controller/auth_controller.dart';
@@ -47,10 +47,10 @@ class _TheAppState extends ConsumerState<TheApp> {
   model.User? userModel;
   int ctr = 0;
 
-  void getData(WidgetRef ref, model.User user) async {
+  void getData(WidgetRef ref, User user) async {
     userModel = await ref
         .read(authControllerProvider.notifier)
-        .getUserData(user.number)
+        .getUserData(user.uid)
         .first;
     ref.watch(userProvider.notifier).update((state) => userModel);
     if (ctr == 0) {

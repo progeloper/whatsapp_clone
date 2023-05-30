@@ -7,7 +7,8 @@ import 'package:routemaster/routemaster.dart';
 import 'package:whatsapp_clone/core/constants/firebase_constants.dart';
 import 'package:whatsapp_clone/core/failure.dart';
 import 'package:whatsapp_clone/core/providers/firebase_providers.dart';
-import 'package:whatsapp_clone/core/type_defs.dart';
+import 'package:whatsapp_clone/models/user.dart' as model;
+import '../../../core/type_defs.dart';
 
 final authRepoProvider = Provider((ref) {
   final auth = ref.read(firebaseAuthProvider);
@@ -32,6 +33,8 @@ class AuthRepository {
   CollectionReference get _users =>
       _firestore.collection(FirebaseConstants.usersCollection);
 
+  Stream<User?> get authStateChange => _auth.authStateChanges();
+
   FutureVoid registerUser(String mobile, BuildContext context) async {
     try {
       UserCredential? _cred;
@@ -45,15 +48,16 @@ class AuthRepository {
             String? smsCode = _ref.watch(smsCodeProvider);
             AuthCredential? _credential;
             _ref.listen(smsCodeProvider, (previous, next) {
-              if(next != null){
-                _credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: next);
+              if (next != null) {
+                _credential = PhoneAuthProvider.credential(
+                    verificationId: verificationId, smsCode: next);
               }
             });
-            if(_credential != null){
+            if (_credential != null) {
               _cred = await _auth.signInWithCredential(_credential!);
             }
           },
-          codeAutoRetrievalTimeout: (String verificationId){
+          codeAutoRetrievalTimeout: (String verificationId) {
             verificationId = verificationId;
           });
 
@@ -63,5 +67,10 @@ class AuthRepository {
     } catch (e) {
       return left(Failure(e.toString()));
     }
+  }
+
+  Stream<model.User> getUserData(String uid) {
+    return _users.doc(uid).snapshots().map(
+        (event) => model.User.fromMap(event.data() as Map<String, dynamic>));
   }
 }

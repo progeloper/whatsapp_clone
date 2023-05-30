@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/core/constants/constants.dart';
 
 import '../../../theme/palette.dart';
 
@@ -44,7 +45,11 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
               ),
               const SizedBox(
                 height: 20,
-              )
+              ),
+              CircleAvatar(
+                backgroundImage: NetworkImage(Constants.defaultAvatar),
+                radius: 50,
+              ),
             ],
           ),
         ),
