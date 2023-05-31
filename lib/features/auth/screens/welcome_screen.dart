@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 import 'package:whatsapp_clone/core/common/widgets/action_button.dart';
 import 'package:whatsapp_clone/theme/palette.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
+
+  void goToEnterPhoneScreen(BuildContext context) {
+    Routemaster.of(context).push('/enter-phone-screen');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: 'WHatsApp Terms of Service and Privacy Policy',
+                      text: 'WhatsApp Terms of Service and Privacy Policy',
                       style: TextStyle(
                         color: Palette.messageColor,
                       ),
@@ -56,8 +61,12 @@ class WelcomeScreen extends StatelessWidget {
                 height: 10,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width*0.8,
-                child: ActionButton(text: 'AGREE AND CONTINUE', color: Palette.tabColor, callback: () {},),
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: ActionButton(
+                  text: 'AGREE AND CONTINUE',
+                  color: Palette.tabColor,
+                  callback: () => goToEnterPhoneScreen(context),
+                ),
               )
             ],
           ),
