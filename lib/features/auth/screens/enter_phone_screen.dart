@@ -190,4 +190,3 @@ class _EnterPhoneScreenState extends ConsumerState<EnterPhoneScreen> {
     );
   }
 }
-
