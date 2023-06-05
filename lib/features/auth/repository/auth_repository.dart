@@ -46,7 +46,7 @@ class AuthRepository {
             throw e.message!;
           },
           codeSent: (String verificationId, int? forceResendingToken) async {
-            Routemaster.of(context).push('/enter-otp-screen/$verificationId');
+            Routemaster.of(context).push('/enter-otp-screen/$verificationId/$mobile');
           },
           codeAutoRetrievalTimeout: (String verificationId) {
             verificationId = verificationId;

@@ -10,9 +10,10 @@ final signedOutRoute = RouteMap(routes: {
         child: WelcomeScreen(),
       ),
   '/enter-phone-screen': (_) => const MaterialPage(child: EnterPhoneScreen()),
-  '/enter-otp-screen/:verificationId': (route) => MaterialPage(
+  '/enter-otp-screen/:verificationId/:mobile': (route) => MaterialPage(
         child: EnterOTPScreen(
           verificationId: route.pathParameters['verificationId']!,
+          phoneNumber: route.pathParameters['mobile']!,
         ),
       ),
   '/create-profile-screen':(_)=> const MaterialPage(child: CreateProfileScreen()),
