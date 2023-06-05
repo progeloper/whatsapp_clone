@@ -1,6 +1,10 @@
+import 'dart:js_interop';
+import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 import 'package:whatsapp_clone/features/auth/repository/auth_repository.dart';
 import 'package:whatsapp_clone/models/user.dart' as model;
 import '../../../core/utils.dart';
@@ -38,7 +42,13 @@ class AuthController extends StateNotifier<bool> {
     res.fold((l) => showSnackBar(context, l.error), (r) => null);
   }
 
-  void saveUser(BuildContext context, )
+  void saveUser({required BuildContext context, required String name, required String number, Uint8List? picture, required String about}){
+    final String uid = const Uuid().v1();
+    if(!picture.isNull){
+
+    }
+    final model.User userModel = model.User(name: name, uid: uid, number: number, displayPic: displayPic, about: about, statusPosts: statusPosts, isOnline: isOnline, lastOnline: lastOnline)
+  }
 
   Stream getUserData(String uid){
     return _repo.getUserData(uid);
