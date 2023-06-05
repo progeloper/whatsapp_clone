@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:whatsapp_clone/core/constants/constants.dart';
+import 'package:whatsapp_clone/core/providers/firebase_providers.dart';
 import 'package:whatsapp_clone/core/providers/storage_repository_provider.dart';
 import 'package:whatsapp_clone/features/auth/repository/auth_repository.dart';
 import 'package:whatsapp_clone/models/user.dart' as model;
@@ -14,7 +15,8 @@ final authControllerProvider =
     StateNotifierProvider<AuthController, bool>((ref) {
   final repo = ref.read(authRepoProvider);
   final storageRepo = ref.read(storageRepositoryProvider);
-  return AuthController(repo: repo, storageRepo: storageRepo, ref: ref);
+  final auth = ref.read(firebaseAuthProvider);
+  return AuthController(repo: repo, storageRepo: storageRepo, ref: ref, auth: auth);
 });
 
 final userProvider = StateProvider<model.User?>((ref)=>null);
@@ -27,10 +29,11 @@ class AuthController extends StateNotifier<bool> {
   final AuthRepository _repo;
   final FirebaseStorageRepository _storageRepo;
   final Ref _ref;
-  AuthController({required AuthRepository repo, required FirebaseStorageRepository storageRepo, required Ref ref})
+  final FirebaseAuth _auth; //use only to get uid
+  AuthController({required AuthRepository repo, required FirebaseStorageRepository storageRepo, required Ref ref, required FirebaseAuth auth,})
       : _repo = repo,
   _storageRepo = storageRepo,
-  _ref = ref,
+  _ref = ref, _auth = auth,
         super(false);
 
   Stream<User?> get authStateChange => _repo.authStateChange;
@@ -49,7 +52,7 @@ class AuthController extends StateNotifier<bool> {
   }
 
   Future<void> saveUser({required BuildContext context, required String name, required String number, Uint8List? picture, required String about}) async {
-    final String uid = const Uuid().v1();
+    final String uid = _auth.currentUser!.uid;
     String displayPic = Constants.defaultAvatar;
     if(picture != null){
       final res = await _storageRepo.storeImage(path: '/profile-pictures', id: uid, file: picture!);
