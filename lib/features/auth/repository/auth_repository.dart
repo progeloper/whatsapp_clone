@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,13 +9,17 @@ import 'package:routemaster/routemaster.dart';
 import 'package:whatsapp_clone/core/constants/firebase_constants.dart';
 import 'package:whatsapp_clone/core/failure.dart';
 import 'package:whatsapp_clone/core/providers/firebase_providers.dart';
+import 'package:whatsapp_clone/core/providers/storage_repository_provider.dart';
 import 'package:whatsapp_clone/models/user.dart' as model;
+import '../../../core/constants/constants.dart';
 import '../../../core/type_defs.dart';
+import '../../../core/utils.dart';
 
 final authRepoProvider = Provider((ref) {
   final auth = ref.read(firebaseAuthProvider);
   final firestore = ref.read(firestoreProvider);
-  return AuthRepository(auth: auth, firestore: firestore, ref: ref);
+  final storageRepo = ref.read(storageRepositoryProvider);
+  return AuthRepository(auth: auth, firestore: firestore, ref: ref, storageRepo: storageRepo);
 });
 
 final smsCodeProvider = StateProvider<String?>((ref) => null);
@@ -21,14 +27,15 @@ final smsCodeProvider = StateProvider<String?>((ref) => null);
 class AuthRepository {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
+  final FirebaseStorageRepository _storageRepo;
   final Ref _ref;
   AuthRepository(
       {required FirebaseAuth auth,
       required FirebaseFirestore firestore,
-      required Ref ref})
+      required Ref ref, required FirebaseStorageRepository storageRepo})
       : _auth = auth,
         _firestore = firestore,
-        _ref = ref;
+        _ref = ref, _storageRepo = storageRepo;
 
   CollectionReference get _users =>
       _firestore.collection(FirebaseConstants.usersCollection);
@@ -78,11 +85,16 @@ class AuthRepository {
     }
   }
 
-  FutureVoid saveUser({required model.User userModel})async{
+  FutureEither<model.User> saveUser({required BuildContext context, required String name, required String about, required Timestamp lastOnline, required Uint8List? picture})async{
     try{
-
+      String displayPic = Constants.defaultAvatar;
+      if(picture != null){
+        final res = await _storageRepo.storeImage(path: '/profile-pictures', id: _auth.currentUser!.uid, file: picture!);
+        res.fold((l) => showSnackBar(context, l.error), (r){displayPic = r;},);
+      }
+      final model.User userModel = model.User(name: name, uid: _auth.currentUser!.uid, number: _auth.currentUser!.phoneNumber!, displayPic: displayPic, about: about, statusPosts: [], isOnline: false, lastOnline: lastOnline);
       await _users.doc(userModel.uid).set(userModel.toMap());
-      return right(null);
+      return right(userModel);
     } on FirebaseException catch(e){
       throw e.message!;
     } catch(e){
