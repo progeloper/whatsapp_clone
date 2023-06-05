@@ -76,9 +76,9 @@ class AuthRepository {
     }
   }
 
-  FutureVoid saveUser({required model.User currentUser})async{
+  FutureVoid saveUser({required model.User userModel})async{
     try{
-      await _users.doc(currentUser.uid).set(currentUser.toMap());
+      await _users.doc(userModel.uid).set(userModel.toMap());
       return right(null);
     } on FirebaseException catch(e){
       throw e.message!;
