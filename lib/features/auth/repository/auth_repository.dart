@@ -76,6 +76,17 @@ class AuthRepository {
     }
   }
 
+  FutureVoid saveUser({required model.User currentUser})async{
+    try{
+      await _users.doc(currentUser.uid).set(currentUser.toMap());
+      return right(null);
+    } on FirebaseException catch(e){
+      throw e.message!;
+    } catch(e){
+      return left(Failure(e.toString()));
+    }
+  }
+
   Stream<model.User> getUserData(String uid) {
     return _users.doc(uid).snapshots().map(
         (event) => model.User.fromMap(event.data() as Map<String, dynamic>));

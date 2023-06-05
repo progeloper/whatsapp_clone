@@ -38,6 +38,8 @@ class AuthController extends StateNotifier<bool> {
     res.fold((l) => showSnackBar(context, l.error), (r) => null);
   }
 
+  void saveUser(BuildContext context, )
+
   Stream getUserData(String uid){
     return _repo.getUserData(uid);
   }

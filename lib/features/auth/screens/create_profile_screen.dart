@@ -1,12 +1,20 @@
+import 'dart:js_interop';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/core/common/widgets/number_text_field.dart';
 import 'package:whatsapp_clone/core/constants/constants.dart';
+import 'package:whatsapp_clone/core/utils.dart';
 
+import '../../../core/common/widgets/action_button.dart';
 import '../../../theme/palette.dart';
 
 class CreateProfileScreen extends ConsumerStatefulWidget {
+  final String number;
   const CreateProfileScreen({
     Key? key,
+    required this.number,
   }) : super(key: key);
 
   @override
@@ -14,6 +22,29 @@ class CreateProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
+  late TextEditingController _usernameController;
+  late TextEditingController _bioController;
+  Uint8List? file;
+
+  void pickProfilePicture()async{
+    file = await pickImage();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController = TextEditingController();
+    _bioController = TextEditingController();
+  }
+
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _bioController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,15 +81,71 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
                   height: 40,
                 ),
                 GestureDetector(
-                  onTap: (){},
-                  child: CircleAvatar(
+                  onTap: pickProfilePicture,
+                  child: (!file.isNull)?
+                  CircleAvatar(
                     radius: 100,
-                    backgroundColor: Palette.lightGreyColor,
+                    backgroundImage: MemoryImage(file!),
+                  )
+                  : CircleAvatar(
+                    radius: 100,
+                    backgroundColor: Palette.extraLightGrey,
                     child: Icon(
                       Icons.add_a_photo,
                       color: Palette.hintTextColor,
                       size: 80,
                     ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                InputTextField(
+                  child: TextField(
+                    controller: _usernameController,
+                    decoration: InputDecoration(
+                      hintText: "Type your username",
+                      hintStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Palette.hintTextColor,
+                        letterSpacing: 1.0,
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Palette.tabColor, width: 2.0),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                InputTextField(
+                  child: TextField(
+                    controller: _bioController,
+                    decoration: InputDecoration(
+                      hintText: "Type a status",
+                      hintStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Palette.hintTextColor,
+                        letterSpacing: 1.0,
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Palette.tabColor, width: 2.0),
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(child: Container()),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: ActionButton(
+                    text: 'SAVE',
+                    color: Palette.tabColor,
+                    callback: () {},
                   ),
                 ),
               ],

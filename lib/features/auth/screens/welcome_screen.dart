@@ -68,7 +68,7 @@ class WelcomeScreen extends StatelessWidget {
                   color: Palette.tabColor,
                   callback: () => goToEnterPhoneScreen(context),
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -68,7 +68,7 @@ class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
       // ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0).copyWith(
+          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0).copyWith(
             top: 32,
           ),
           child: Column(

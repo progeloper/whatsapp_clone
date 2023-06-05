@@ -18,5 +18,6 @@ class Palette{
   static Color hintTextColor = const Color.fromRGBO(128, 128, 128, 1);
   static const darkGreyColor = Color.fromRGBO(101, 119, 134, 1);
   static const lightGreyColor = Color.fromRGBO(170, 184, 194, 1);
+  static const extraLightGrey = Color.fromRGBO(225, 232, 237, 1);
 
 }
