@@ -39,7 +39,7 @@ class AuthRepository {
     try {
       await _auth.verifyPhoneNumber(
           phoneNumber: mobile,
-          verificationCompleted: (AuthCredential credential)async {
+          verificationCompleted: (PhoneAuthCredential credential)async {
             await _auth.signInWithCredential(credential);
           },
           verificationFailed: (e) {
