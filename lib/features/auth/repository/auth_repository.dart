@@ -64,10 +64,11 @@ class AuthRepository {
     required BuildContext context,
     required String verificationId,
     required String OTP,
+    required String number
   }) async {
     try{
       PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: OTP);
-      Routemaster.of(context).push('/create-profile-screen');
+      Routemaster.of(context).push('/create-profile-screen/$number');
       return right(null);
     }on FirebaseException catch(e){
       throw e.message!;

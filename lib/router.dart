@@ -16,7 +16,11 @@ final signedOutRoute = RouteMap(routes: {
           phoneNumber: route.pathParameters['mobile']!,
         ),
       ),
-  '/create-profile-screen':(_)=> const MaterialPage(child: CreateProfileScreen()),
+  '/create-profile-screen/:mobile': (route) => MaterialPage(
+        child: CreateProfileScreen(
+          number: route.pathParameters['mobile']!,
+        ),
+      ),
 });
 
 final signedInRoute = RouteMap(routes: {});

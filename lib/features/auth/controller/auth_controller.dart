@@ -1,6 +1,4 @@
-import 'dart:js_interop';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,15 +41,15 @@ class AuthController extends StateNotifier<bool> {
     );
   }
 
-  void verifyOTP(BuildContext context, String verificationId, String OTP)async{
-    final res = await _repo.verifyOTP(context: context, verificationId: verificationId, OTP: OTP);
+  void verifyOTP(BuildContext context, String verificationId, String OTP, String number)async{
+    final res = await _repo.verifyOTP(context: context, verificationId: verificationId, OTP: OTP, number: number);
     res.fold((l) => showSnackBar(context, l.error), (r) => null);
   }
 
   Future<void> saveUser({required BuildContext context, required String name, required String number, Uint8List? picture, required String about}) async {
     final String uid = const Uuid().v1();
     String displayPic = Constants.defaultAvatar;
-    if(!picture.isNull){
+    if(picture != null){
       final res = await _storageRepo.storeImage(path: '/profile-pictures', id: uid, file: picture!);
       res.fold((l) => showSnackBar(context, l.error), (r){displayPic = r;},);
     }

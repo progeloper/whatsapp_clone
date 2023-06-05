@@ -43,7 +43,7 @@ class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
   }
 
   void verifyOTP(WidgetRef ref, BuildContext context){
-    ref.read(authControllerProvider.notifier).verifyOTP(context, widget.verificationId, _OTPController.text);
+    ref.read(authControllerProvider.notifier).verifyOTP(context, widget.verificationId, _OTPController.text, widget.phoneNumber);
   }
 
   @override
