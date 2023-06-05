@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/features/auth/repository/auth_repository.dart';
 import 'package:whatsapp_clone/theme/palette.dart';
 
@@ -21,28 +22,28 @@ class EnterOTPScreen extends ConsumerStatefulWidget {
 }
 
 class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
-  late TextEditingController _controller;
+  late TextEditingController _OTPController;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = TextEditingController();
+    _OTPController = TextEditingController();
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    _controller.dispose();
+    _OTPController.dispose();
   }
 
   void goBack(BuildContext context) {
     Routemaster.of(context).pop();
   }
 
-  void updateSmsCode(WidgetRef ref){
-    ref.read(smsCodeProvider.notifier).state = _controller.text.trim();
+  void verifyOTP(WidgetRef ref, BuildContext context){
+    ref.read(authControllerProvider.notifier).verifyOTP(context, widget.verificationId, _OTPController.text);
   }
 
   @override
@@ -113,10 +114,15 @@ class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: InputTextField(
                       child: TextField(
-                        controller: _controller,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(6),
-                        ],
+                        controller: _OTPController,
+                        onChanged: (value){
+                          if(value.length == 6){
+                            verifyOTP(ref, context);
+                          }
+                        },
+                        // inputFormatters: [
+                        //   LengthLimitingTextInputFormatter(6),
+                        // ],
                         decoration: InputDecoration(
                           hintText: "OTP Code",
                           hintStyle: TextStyle(
@@ -131,16 +137,6 @@ class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  IconButton(
-                    onPressed: ()=> updateSmsCode(ref),
-                    icon: Icon(
-                      Icons.send,
-                      color: Palette.tabColor,
                     ),
                   ),
                 ],

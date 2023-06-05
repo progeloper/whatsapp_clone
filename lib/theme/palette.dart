@@ -16,5 +16,7 @@ class Palette{
   static Color chatBarMessage = const Color.fromRGBO(30, 36, 40, 1);
   static Color mobileChatBoxColor = const Color.fromRGBO(31, 44, 52, 1);
   static Color hintTextColor = const Color.fromRGBO(128, 128, 128, 1);
+  static const darkGreyColor = Color.fromRGBO(101, 119, 134, 1);
+  static const lightGreyColor = Color.fromRGBO(170, 184, 194, 1);
 
 }
