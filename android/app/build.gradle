@@ -45,7 +45,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.mayeaux.whatsapp_clone"
+        applicationId "com.mayeavx.whatsapp_clone"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 33
@@ -73,5 +73,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
 
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    implementation 'androidx.browser:browser:1.5.0'
 
 }

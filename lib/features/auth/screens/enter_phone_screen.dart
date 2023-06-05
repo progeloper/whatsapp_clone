@@ -35,7 +35,7 @@ class _EnterPhoneScreenState extends ConsumerState<EnterPhoneScreen> {
   }
 
   void sendOTP(BuildContext context, WidgetRef ref){
-    ref.read(authControllerProvider.notifier).registerUser('$countryCode}${_controller.text}', context);
+    ref.read(authControllerProvider.notifier).registerUser('${countryCode.value}${_controller.text}', context);
   }
 
   @override
@@ -123,6 +123,7 @@ class _EnterPhoneScreenState extends ConsumerState<EnterPhoneScreen> {
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(10),
                         ],
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           hintText: "phone number",
                           hintStyle: TextStyle(
@@ -147,7 +148,7 @@ class _EnterPhoneScreenState extends ConsumerState<EnterPhoneScreen> {
                 child: ActionButton(
                   text: 'NEXT',
                   color: Palette.tabColor,
-                  callback: () {},
+                  callback: ()=>sendOTP(context, ref),
                 ),
               ),
               const SizedBox(

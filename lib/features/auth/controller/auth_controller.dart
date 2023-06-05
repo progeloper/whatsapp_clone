@@ -33,6 +33,11 @@ class AuthController extends StateNotifier<bool> {
     );
   }
 
+  void verifyOTP(BuildContext context, String verificationId, String OTP)async{
+    final res = await _repo.verifyOTP(context: context, verificationId: verificationId, OTP: OTP);
+    res.fold((l) => showSnackBar(context, l.error), (r) => null);
+  }
+
   Stream getUserData(String uid){
     return _repo.getUserData(uid);
   }

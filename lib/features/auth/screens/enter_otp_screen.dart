@@ -8,10 +8,10 @@ import 'package:whatsapp_clone/theme/palette.dart';
 import '../../../core/common/widgets/number_text_field.dart';
 
 class EnterOTPScreen extends ConsumerStatefulWidget {
-  final String phoneNumber;
+  final String verificationId;
   const EnterOTPScreen({
     Key? key,
-    required this.phoneNumber,
+    required this.verificationId,
   }) : super(key: key);
 
   @override
@@ -135,7 +135,7 @@ class _EnterOTPScreenState extends ConsumerState<EnterOTPScreen> {
                     width: 5,
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: ()=> updateSmsCode(ref),
                     icon: Icon(
                       Icons.send,
                       color: Palette.tabColor,

@@ -37,25 +37,16 @@ class AuthRepository {
 
   FutureVoid registerUser(String mobile, BuildContext context) async {
     try {
-      UserCredential? _cred;
-      _auth.verifyPhoneNumber(
-          verificationCompleted: (AuthCredential credential) {},
+      await _auth.verifyPhoneNumber(
+          phoneNumber: mobile,
+          verificationCompleted: (AuthCredential credential)async {
+            await _auth.signInWithCredential(credential);
+          },
           verificationFailed: (e) {
             throw e.message!;
           },
           codeSent: (String verificationId, int? forceResendingToken) async {
-            Routemaster.of(context).push('/enter-otp-screen/$mobile');
-            String? smsCode = _ref.watch(smsCodeProvider);
-            AuthCredential? _credential;
-            _ref.listen(smsCodeProvider, (previous, next) {
-              if (next != null) {
-                _credential = PhoneAuthProvider.credential(
-                    verificationId: verificationId, smsCode: next);
-              }
-            });
-            if (_credential != null) {
-              _cred = await _auth.signInWithCredential(_credential!);
-            }
+            Routemaster.of(context).push('/enter-otp-screen/$verificationId');
           },
           codeAutoRetrievalTimeout: (String verificationId) {
             verificationId = verificationId;
@@ -65,6 +56,22 @@ class AuthRepository {
     } on FirebaseException catch (e) {
       throw e.message!;
     } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  FutureVoid verifyOTP({
+    required BuildContext context,
+    required String verificationId,
+    required String OTP,
+  }) async {
+    try{
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: OTP);
+      Routemaster.of(context).push('/create-profile-screen');
+      return right(null);
+    }on FirebaseException catch(e){
+      throw e.message!;
+    } catch(e){
       return left(Failure(e.toString()));
     }
   }

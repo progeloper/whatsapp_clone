@@ -16,7 +16,7 @@ class WelcomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0).copyWith(
-            top: 32,
+            top: 36,
             bottom: 16,
           ),
           child: Column(
@@ -26,7 +26,8 @@ class WelcomeScreen extends StatelessWidget {
                 'Welcome to WhatsApp',
                 style: TextStyle(
                   color: Palette.tabColor,
-                  fontSize: 20,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold
                 ),
               ),
               Flexible(

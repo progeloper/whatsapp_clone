@@ -1,4 +1,4 @@
-package com.mayeaux.whatsapp_clone
+package com.mayeavx.whatsapp_clone
 
 import io.flutter.embedding.android.FlutterActivity
 
