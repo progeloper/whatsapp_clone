@@ -1,11 +1,10 @@
-import 'dart:js_interop';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/core/common/widgets/number_text_field.dart';
-import 'package:whatsapp_clone/core/constants/constants.dart';
 import 'package:whatsapp_clone/core/utils.dart';
+import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 
 import '../../../core/common/widgets/action_button.dart';
 import '../../../theme/palette.dart';
@@ -28,6 +27,12 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
 
   void pickProfilePicture()async{
     file = await pickImage();
+    setState(() {
+    });
+  }
+
+  void saveDetails(BuildContext context, WidgetRef ref){
+    ref.read(authControllerProvider.notifier).saveUser(context: context, name: _usernameController.text, number: widget.number, about: _bioController.text);
   }
 
   @override
@@ -82,7 +87,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
                 ),
                 GestureDetector(
                   onTap: pickProfilePicture,
-                  child: (!file.isNull)?
+                  child: (file!=null)?
                   CircleAvatar(
                     radius: 100,
                     backgroundImage: MemoryImage(file!),
@@ -145,7 +150,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
                   child: ActionButton(
                     text: 'SAVE',
                     color: Palette.tabColor,
-                    callback: () {},
+                    callback: ()=>saveDetails(context, ref),
                   ),
                 ),
               ],

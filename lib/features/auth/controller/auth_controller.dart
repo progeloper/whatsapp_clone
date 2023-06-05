@@ -14,7 +14,7 @@ final authControllerProvider =
     StateNotifierProvider<AuthController, bool>((ref) {
   final repo = ref.read(authRepoProvider);
   final storageRepo = ref.read(storageRepositoryProvider);
-  return AuthController(repo: repo, storageRepo: storageRepo);
+  return AuthController(repo: repo, storageRepo: storageRepo, ref: ref);
 });
 
 final userProvider = StateProvider<model.User?>((ref)=>null);
@@ -26,9 +26,11 @@ final authStateChangeProvider = StreamProvider((ref) {
 class AuthController extends StateNotifier<bool> {
   final AuthRepository _repo;
   final FirebaseStorageRepository _storageRepo;
-  AuthController({required AuthRepository repo, required FirebaseStorageRepository storageRepo})
+  final Ref _ref;
+  AuthController({required AuthRepository repo, required FirebaseStorageRepository storageRepo, required Ref ref})
       : _repo = repo,
   _storageRepo = storageRepo,
+  _ref = ref,
         super(false);
 
   Stream<User?> get authStateChange => _repo.authStateChange;
@@ -56,7 +58,10 @@ class AuthController extends StateNotifier<bool> {
     DateTime currentTime = DateTime.now();
     Timestamp lastOnline = Timestamp.fromDate(currentTime);
     final model.User userModel = model.User(name: name, uid: uid, number: number, displayPic: displayPic, about: about, statusPosts: [], isOnline: false, lastOnline: lastOnline);
-    _repo.saveUser(userModel: userModel);
+    final result = await _repo.saveUser(userModel: userModel);
+    result.fold((l) => showSnackBar(context, l.error), (r) {
+      _ref.read(userProvider.notifier).update((state) => userModel);
+    },);
   }
 
   Stream getUserData(String uid){
