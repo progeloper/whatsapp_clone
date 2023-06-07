@@ -6,7 +6,8 @@ class User{
   final String number;
   final String displayPic;
   final String about;
-  final List statusPosts;
+  final List<String> contacts;
+  final List<String> statusPosts;
   final bool isOnline;
   final Timestamp lastOnline;
 
@@ -17,6 +18,7 @@ class User{
     required this.number,
     required this.displayPic,
     required this.about,
+    required this.contacts,
     required this.statusPosts,
     required this.isOnline,
     required this.lastOnline,
@@ -28,7 +30,8 @@ class User{
     String? number,
     String? displayPic,
     String? about,
-    List? statusPosts,
+    List<String>? contacts,
+    List<String>? statusPosts,
     bool? isOnline,
     Timestamp? lastOnline,
   }) {
@@ -38,6 +41,7 @@ class User{
       number: number ?? this.number,
       displayPic: displayPic ?? this.displayPic,
       about: about ?? this.about,
+      contacts: contacts ?? this.contacts,
       statusPosts: statusPosts ?? this.statusPosts,
       isOnline: isOnline ?? this.isOnline,
       lastOnline: lastOnline ?? this.lastOnline,
@@ -51,6 +55,7 @@ class User{
       'number': this.number,
       'displayPic': this.displayPic,
       'about': this.about,
+      'contacts': this.contacts,
       'statusPosts': this.statusPosts,
       'isOnline': this.isOnline,
       'lastOnline': this.lastOnline,
@@ -64,7 +69,8 @@ class User{
       number: map['number'] as String,
       displayPic: map['displayPic'] as String,
       about: map['about'] as String,
-      statusPosts: map['statusPosts'] as List,
+      contacts: List<String>.from(map['contacts']) ,
+      statusPosts: List<String>.from(map['statusPosts']),
       isOnline: map['isOnline'] as bool,
       lastOnline: map['lastOnline'] as Timestamp,
     );

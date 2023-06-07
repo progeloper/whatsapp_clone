@@ -33,22 +33,84 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'WhatsApp',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Palette.lightGreyColor,
                         fontWeight: FontWeight.w600,
                         fontSize: 32,
                       ),
                     ),
-
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.add_a_photo_outlined,
+                              color: Palette.lightGreyColor,
+                              size: 32,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.search_outlined,
+                              color: Palette.lightGreyColor,
+                              size: 32,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.more_vert,
+                              color: Palette.lightGreyColor,
+                              size: 32,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
             ),
           ];
         },
-        body: Container(),
+        body: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            appBar: TabBar(
+              indicatorColor: Colors.white,
+              labelColor: Palette.tabColor,
+              unselectedLabelColor: Palette.tabColor,
+              isScrollable: true,
+              tabs: const [
+                Tab(
+                  text: 'Chats',
+                ),
+                Tab(
+                  text: 'Status',
+                ),
+                Tab(
+                  text: 'Calls',
+                ),
+              ],
+            ),
+            body: TabBarView(
+              children: [],
+            ),
+          ),
+        ),
       ),
     );
   }
