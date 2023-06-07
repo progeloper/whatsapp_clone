@@ -15,12 +15,20 @@ class ChatList extends ConsumerStatefulWidget {
 }
 
 class _ChatListState extends ConsumerState<ChatList> {
+
+
+
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
     return ref.watch(getUserChatsProvider(user!.uid)).when(
           data: (chats) {
-
+            return ListView.builder(
+              itemCount: chats.length,
+              itemBuilder: (context, index) {
+                final chat = chats[index];
+              },
+            );
           },
           error: (error, stackTrace) => ErrorText(error: error.toString()),
           loading: () => const LoadingScreen(),
