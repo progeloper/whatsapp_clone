@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/core/common/error_text.dart';
 import 'package:whatsapp_clone/core/common/loading_screen.dart';
+import 'package:whatsapp_clone/core/common/widgets/chat_tile.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/features/home/controller/home_controller.dart';
 
@@ -27,6 +28,7 @@ class _ChatListState extends ConsumerState<ChatList> {
               itemCount: chats.length,
               itemBuilder: (context, index) {
                 final chat = chats[index];
+                return ChatTile(convo: chat);
               },
             );
           },

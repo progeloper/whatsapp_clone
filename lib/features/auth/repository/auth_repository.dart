@@ -92,7 +92,7 @@ class AuthRepository {
         final res = await _storageRepo.storeImage(path: '/profile-pictures', id: _auth.currentUser!.uid, file: picture!);
         res.fold((l) => showSnackBar(context, l.error), (r){displayPic = r;},);
       }
-      final model.User userModel = model.User(name: name, uid: _auth.currentUser!.uid, number: _auth.currentUser!.phoneNumber!, displayPic: displayPic, about: about, statusPosts: [], isOnline: false, lastOnline: lastOnline);
+      final model.User userModel = model.User(name: name, uid: _auth.currentUser!.uid, number: _auth.currentUser!.phoneNumber!, displayPic: displayPic, about: about, statusPosts: [], isOnline: false, lastOnline: lastOnline, contacts: []);
       await _users.doc(userModel.uid).set(userModel.toMap());
       return right(userModel);
     } on FirebaseException catch(e){

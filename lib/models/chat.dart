@@ -13,7 +13,7 @@ class Chat{
   const Chat({
     required this.chatId,
     required this.avatar,
-    this.name,
+    required this.name,
     required this.members,
     required this.lastMessage,
     required this.isGroup,
