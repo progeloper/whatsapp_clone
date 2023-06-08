@@ -22,7 +22,7 @@ final authControllerProvider =
 final userProvider = StateProvider<model.User?>((ref)=>null);
 
 final authStateChangeProvider = StreamProvider((ref) {
-  return ref.read(authControllerProvider.notifier).authStateChange;
+  return ref.watch(authControllerProvider.notifier).authStateChange;
 });
 
 class AuthController extends StateNotifier<bool> {

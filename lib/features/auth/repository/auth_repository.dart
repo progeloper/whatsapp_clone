@@ -10,6 +10,7 @@ import 'package:whatsapp_clone/core/constants/firebase_constants.dart';
 import 'package:whatsapp_clone/core/failure.dart';
 import 'package:whatsapp_clone/core/providers/firebase_providers.dart';
 import 'package:whatsapp_clone/core/providers/storage_repository_provider.dart';
+import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/models/user.dart' as model;
 import '../../../core/constants/constants.dart';
 import '../../../core/type_defs.dart';
@@ -76,8 +77,8 @@ class AuthRepository {
     try{
       PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: OTP);
       await _auth.signInWithCredential(credential);
-      Routemaster.of(context).push('/create-profile-screen/$number');
-      return right(null);
+        Routemaster.of(context).push('/create-profile-screen/$number');
+        return right(null);
     }on FirebaseException catch(e){
       throw e.message!;
     } catch(e){
@@ -106,4 +107,5 @@ class AuthRepository {
     return _users.doc(uid).snapshots().map(
         (event) => model.User.fromMap(event.data() as Map<String, dynamic>));
   }
+
 }
