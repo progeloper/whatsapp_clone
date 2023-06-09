@@ -32,7 +32,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
   }
 
   void saveDetails(BuildContext context, WidgetRef ref){
-    ref.read(authControllerProvider.notifier).saveUser(context: context, name: _usernameController.text, number: widget.number, about: _bioController.text);
+    ref.read(authControllerProvider.notifier).saveUser(context: context, name: _usernameController.text, number: widget.number, about: _bioController.text, picture: file);
   }
 
   @override
