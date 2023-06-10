@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
+import 'package:whatsapp_clone/features/chat/screens/chat_list.dart';
 import 'package:whatsapp_clone/features/home/controller/home_controller.dart';
 import 'package:whatsapp_clone/models/user.dart';
 import 'package:whatsapp_clone/theme/palette.dart';
@@ -109,7 +110,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ],
               ),
               body: TabBarView(
-                children: [],
+                children: [
+                  ChatList(),
+                  
+                ],
               ),
             ),
           ),

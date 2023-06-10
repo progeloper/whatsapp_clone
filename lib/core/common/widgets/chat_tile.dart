@@ -20,7 +20,7 @@ class _ChatTileState extends ConsumerState<ChatTile> {
       members.remove(uid);
       return members[0];
     }
-    return widget.convo.name!;
+    return widget.convo.name;
   }
 
   @override

@@ -51,6 +51,7 @@ dependencies:
   url_launcher: ^6.1.10
   country_code_picker: ^3.0.0
   flutter_firebase_recaptcha: ^1.0.2
+  flutter_contacts: ^1.1.6
 
 dev_dependencies:
   flutter_test:

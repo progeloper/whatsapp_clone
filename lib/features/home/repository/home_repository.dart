@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:whatsapp_clone/core/constants/firebase_constants.dart';
 import 'package:whatsapp_clone/core/providers/firebase_providers.dart';
+import 'package:whatsapp_clone/models/user.dart';
 
 import '../../../models/chat.dart';
 
@@ -17,8 +18,11 @@ class HomeRepository {
       : _firestore = firestore;
 
   CollectionReference get _chats => _firestore.collection(FirebaseConstants.chatsCollections);
+  CollectionReference get _users => _firestore.collection(FirebaseConstants.usersCollection);
 
   Stream<List<Chat>> getUserChats(String uid){
     return _chats.where('members', arrayContains: uid).orderBy('lastMessage',descending: true).snapshots().map((event) => event.docs.map((e) => Chat.fromMap(e.data() as Map<String, dynamic>)).toList()) ;
   }
+
+
 }
