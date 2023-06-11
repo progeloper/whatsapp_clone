@@ -4,6 +4,7 @@ import 'package:whatsapp_clone/features/auth/screens/create_profile_screen.dart'
 import 'package:whatsapp_clone/features/auth/screens/enter_otp_screen.dart';
 import 'package:whatsapp_clone/features/auth/screens/enter_phone_screen.dart';
 import 'package:whatsapp_clone/features/auth/screens/welcome_screen.dart';
+import 'package:whatsapp_clone/features/contacts/screens/contacts_screen.dart';
 import 'package:whatsapp_clone/features/home/screens/home_screen.dart';
 
 final signedOutRoute = RouteMap(routes: {
@@ -26,4 +27,5 @@ final signedOutRoute = RouteMap(routes: {
 
 final signedInRoute = RouteMap(routes: {
   '/': (_)=> const MaterialPage(child: HomeScreen()),
+  '/contacts-screen':(_)=> const MaterialPage(child: ContactsScreen()),
 });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:routemaster/routemaster.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/features/chat/screens/chat_list.dart';
 import 'package:whatsapp_clone/features/home/controller/home_controller.dart';
@@ -61,9 +62,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Routemaster.of(context).push('/contacts-screen');
+                              },
                               icon: const Icon(
-                                Icons.search_outlined,
+                                Icons.chat_outlined,
                                 color: Palette.extraLightGrey,
                                 size: 32,
                               ),
