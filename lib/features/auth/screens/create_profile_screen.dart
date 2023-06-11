@@ -25,14 +25,18 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
   late TextEditingController _bioController;
   Uint8List? file;
 
-  void pickProfilePicture()async{
+  void pickProfilePicture() async {
     file = await pickImage();
-    setState(() {
-    });
+    setState(() {});
   }
 
-  void saveDetails(BuildContext context, WidgetRef ref){
-    ref.read(authControllerProvider.notifier).saveUser(context: context, name: _usernameController.text, number: widget.number, about: _bioController.text, picture: file);
+  void saveDetails(BuildContext context, WidgetRef ref) {
+    ref.read(authControllerProvider.notifier).saveUser(
+        context: context,
+        name: _usernameController.text,
+        number: widget.number,
+        about: _bioController.text,
+        picture: file);
   }
 
   @override
@@ -41,7 +45,6 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
     _usernameController = TextEditingController();
     _bioController = TextEditingController();
   }
-
 
   @override
   void dispose() {
@@ -65,12 +68,30 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'Create your profile',
-                  style: TextStyle(
-                      color: Palette.tabColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Flexible(child: Container()),
+                    Text(
+                      'Create your profile',
+                      style: TextStyle(
+                          color: Palette.tabColor,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Flexible(child: Container()),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Palette.tabColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 20,
@@ -87,20 +108,20 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
                 ),
                 GestureDetector(
                   onTap: pickProfilePicture,
-                  child: (file!=null)?
-                  CircleAvatar(
-                    radius: 100,
-                    backgroundImage: MemoryImage(file!),
-                  )
-                  : CircleAvatar(
-                    radius: 100,
-                    backgroundColor: Palette.extraLightGrey,
-                    child: Icon(
-                      Icons.add_a_photo,
-                      color: Palette.hintTextColor,
-                      size: 80,
-                    ),
-                  ),
+                  child: (file != null)
+                      ? CircleAvatar(
+                          radius: 100,
+                          backgroundImage: MemoryImage(file!),
+                        )
+                      : CircleAvatar(
+                          radius: 100,
+                          backgroundColor: Palette.extraLightGrey,
+                          child: Icon(
+                            Icons.add_a_photo,
+                            color: Palette.hintTextColor,
+                            size: 80,
+                          ),
+                        ),
                 ),
                 const SizedBox(
                   height: 40,
@@ -139,7 +160,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide:
-                        BorderSide(color: Palette.tabColor, width: 2.0),
+                            BorderSide(color: Palette.tabColor, width: 2.0),
                       ),
                     ),
                   ),
@@ -150,7 +171,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
                   child: ActionButton(
                     text: 'SAVE',
                     color: Palette.tabColor,
-                    callback: ()=>saveDetails(context, ref),
+                    callback: () => saveDetails(context, ref),
                   ),
                 ),
               ],
